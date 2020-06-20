@@ -1,11 +1,11 @@
 import React from 'react';
 
-function DrumPad(){
+function DrumPad(props){
     return (
-        <div className='drum-pad'>
-            <audio className='clip' id={this.props.keyTrigger} src={this.props.clip}></audio>
-            {this.props.keyboard}
-        </div>
+        <button className='drum-pad'>
+            <audio className='clip' id={props.keyTrigger} src={props.url} type="audio/mpeg"></audio>
+            <label>{props.keyTrigger}</label>
+        </button>
     )
 }
 

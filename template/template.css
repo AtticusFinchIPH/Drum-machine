@@ -11,15 +11,16 @@ html{
     display: flex;
     flex-direction: row;
 }
-#drum-pad{
+#drum-tab{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
 }
-.drum-button{
+.drum-pad{
     background-color: thistle;
     width: 10rem;
     height: 10rem;
+    cursor: pointer;
 }
 #actions{
     display: flex;
