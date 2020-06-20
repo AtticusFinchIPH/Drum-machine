@@ -10,8 +10,37 @@ class DrumMachine extends React.Component{
     }
     render(){
         return(
-            <div id='drum-machine'>
-                <div id='display'></div>
+            <div className="drum-machine">
+                <div id='drum-pad'>
+                    <button className="drum-button">Q</button>
+                    <button className="drum-button">Q</button>
+                    <button className="drum-button">Q</button>
+                    <button className="drum-button">Q</button>
+                    <button className="drum-button">Q</button>
+                    <button className="drum-button">Q</button>
+                    <button className="drum-button">Q</button>
+                    <button className="drum-button">Q</button>
+                    <button className="drum-button">Q</button>
+                </div>
+                <div id='actions'>
+                    <div className="button-section">
+                        <label>Power</label>
+                        <label className="switch">
+                            <input type="checkbox"/>
+                            <span className="slider"></span>
+                        </label>
+                    </div>
+                    <div id="display">
+                        <p>Hello</p>
+                    </div>
+                    <div className="button-section">
+                        <label>Bank</label>
+                        <label className="switch">
+                            <input type="checkbox"/>
+                            <span className="slider"></span>
+                        </label>
+                    </div>
+                </div>
             </div>
         )
     }

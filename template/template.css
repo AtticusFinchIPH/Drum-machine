@@ -34,6 +34,7 @@ html{
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    height: 100vh;
 }
 #display{
     background-color: #808080;
@@ -64,7 +65,7 @@ html{
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #000000;
+    background-color: #808080;
     -webkit-transition: .4s;
     transition: .4s;
 }
