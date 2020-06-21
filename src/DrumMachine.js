@@ -7,18 +7,21 @@ class DrumMachine extends React.Component{
         super(props);
         this.state = {
             isBank: false,
-            isOn: false
+            isOn: true,
+            display: ''
         };
         this.buildDrumPad = this.buildDrumPad.bind(this);
         this.turnPower = this.turnPower.bind(this);
         this.turnBank = this.turnBank.bind(this);
+        this.playSound = this.playSound.bind(this);
     }
     buildDrumPad(){
         let drumSound = DrumSound_1;
         if(this.state.isBank) drumSound = DrumSound_2;
         return drumSound.map(sound => {
             return(
-                <DrumPad key={sound.keyTrigger} keyTrigger={sound.keyTrigger} url={sound.url}/>
+                <DrumPad id={sound.id} key={sound.keyTrigger} keyTrigger={sound.keyTrigger} url={sound.url} keyCode={sound.keyCode}
+                onClick={this.playSound}/>
             )
         })
     }
@@ -36,6 +39,18 @@ class DrumMachine extends React.Component{
             isBank: !this.state.isBank
         })
     }
+    playSound(e){
+        let idAudio = e.target.getAttribute("keyTrigger");
+        let display = e.target.id;
+        if(idAudio && this.state.isOn){
+            const sound = document.getElementById(idAudio);
+            sound.currentTime = 0;
+            sound.play();
+        }
+        this.setState({
+            display:display
+        })
+    }
     render(){
         return(
             <div id="drum-machine">
@@ -46,12 +61,12 @@ class DrumMachine extends React.Component{
                     <div className="button-section">
                         <label>Power</label>
                         <label className="switch" >
-                            <input type="checkbox"/>
+                            <input type="checkbox" checked/>
                             <span className="slider" onClick={this.turnPower}></span>
                         </label>
                     </div>
                     <div id="display">
-                        <p>Hello</p>
+                        <p>{this.state.display}</p>
                     </div>
                     <div className="button-section">
                         <label>Bank</label>
