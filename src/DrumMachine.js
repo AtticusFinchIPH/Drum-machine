@@ -16,11 +16,14 @@ class DrumMachine extends React.Component{
         this.playSound = this.playSound.bind(this);
     }
     buildDrumPad(){
-        let drumSound = DrumSound_1;
-        if(this.state.isBank) drumSound = DrumSound_2;
+        let drumSound = this.state.isBank ? DrumSound_2 : DrumSound_1;
         return drumSound.map(sound => {
             return(
-                <DrumPad id={sound.id} key={sound.keyTrigger} keyTrigger={sound.keyTrigger} url={sound.url} keyCode={sound.keyCode}
+                <DrumPad id={sound.id} 
+                key={sound.keyTrigger} 
+                keyTrigger={sound.keyTrigger} 
+                url={sound.url} 
+                keyCode={sound.keyCode}
                 onClick={this.playSound}/>
             )
         })
@@ -40,16 +43,30 @@ class DrumMachine extends React.Component{
         })
     }
     playSound(e){
-        let idAudio = e.target.getAttribute("keyTrigger");
-        let display = e.target.id;
+        let idAudio, display;
+        if(e.keyCode){
+            let drumSound = this.state.isBank ? DrumSound_2 : DrumSound_1;
+            let target = drumSound.reduce((total, current) => {
+                if(current.keyCode === e.keyCode) total = current;
+                return total;
+            })
+            idAudio = target.keyTrigger;
+            display = target.id;
+        } else {
+            idAudio = e.target.getAttribute("keyTrigger");
+            display = e.target.id;
+        }
         if(idAudio && this.state.isOn){
             const sound = document.getElementById(idAudio);
             sound.currentTime = 0;
             sound.play();
         }
         this.setState({
-            display:display
+            display:display ? display : ''
         })
+    }
+    componentDidMount(){
+        document.getElementById("checkbox-power").checked = this.state.isOn;
     }
     render(){
         return(
@@ -61,8 +78,8 @@ class DrumMachine extends React.Component{
                     <div className="button-section">
                         <label>Power</label>
                         <label className="switch" >
-                            <input type="checkbox" checked/>
-                            <span className="slider" onClick={this.turnPower}></span>
+                            <input id="checkbox-power" type="checkbox" onChange={this.turnPower}/>
+                            <span className="slider" ></span>
                         </label>
                     </div>
                     <div id="display">
@@ -71,8 +88,8 @@ class DrumMachine extends React.Component{
                     <div className="button-section">
                         <label>Bank</label>
                         <label className="switch" >
-                            <input type="checkbox"/>
-                            <span className="slider" onClick={this.turnBank}></span>
+                            <input type="checkbox"  onChange={this.turnBank}/>
+                            <span className="slider"></span>
                         </label>
                     </div>
                 </div>

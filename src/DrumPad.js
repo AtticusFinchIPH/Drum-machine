@@ -13,12 +13,16 @@ class DrumPad extends React.Component{
     }
     handleKeyPress(e) {
         if (e.keyCode === this.props.keyCode) {
-        this.props.onClick(e);
+            this.props.onClick(e);
         }
     }   
     render(){
         return (
-            <button className='drum-pad' id={this.props.id} keyTrigger={this.props.keyTrigger} onClick={this.props.onClick}>
+            <button className='drum-pad' 
+            id={this.props.id} 
+            keyTrigger={this.props.keyTrigger} 
+            keyCode={this.props.keyCode}
+            onClick={this.props.onClick}>
                 <audio className='clip' id={this.props.keyTrigger} src={this.props.url} type="audio/mpeg"></audio>
                 <label>{this.props.keyTrigger}</label>
             </button>
